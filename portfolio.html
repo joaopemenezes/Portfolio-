@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>João Pedro Menezes | Analista de Dados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --surface-2: #f1f4f9;
+    --border: #e4e8ef;
+    --navy: #0b1730;
+    --navy-2: #1c2b4a;
+    --text: #16213a;
+    --text-muted: #5b6472;
+    --accent: #3b82f6;
+    --accent-soft: #eaf1ff;
+    --accent-line: #cfe0ff;
+    --good: #0f9d67;
+    --good-soft: #e7f7ef;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 1px 2px rgba(16,24,40,.04), 0 8px 24px -12px rgba(16,24,40,.10);
+    --display: 'Space Grotesk', Inter, sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  img{ max-width:100%; display:block; }
+  section{ padding:96px 0; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 32px; }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.04em;
+    color:var(--accent);
+    text-transform:lowercase;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:6px; height:6px; border-radius:50%;
+    background:var(--accent);
+    display:inline-block;
+  }
+  h1,h2,h3{ font-family:var(--display); color:var(--navy); font-weight:700; letter-spacing:-0.01em; }
+  h2{ font-size:clamp(28px,3.4vw,38px); }
+  .section-head{ margin-bottom:44px; max-width:640px; }
+  .section-head p{ color:var(--text-muted); font-size:16px; margin-top:10px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:9px;
+    font-family:var(--body); font-weight:600; font-size:14.5px;
+    padding:13px 22px; border-radius:999px; cursor:pointer;
+    border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn-primary{ background:var(--navy); color:#fff; }
+  .btn-primary:hover{ box-shadow:0 10px 24px -10px rgba(11,23,48,.45); }
+  .btn-secondary{ background:#fff; color:var(--navy); border-color:var(--border); }
+  .btn-secondary:hover{ border-color:var(--accent); color:var(--accent); }
+  .icon-btn{
+    width:44px; height:44px; border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:#fff; border:1px solid var(--border); color:var(--navy-2);
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .icon-btn:hover{ border-color:var(--accent); color:var(--accent); }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,248,251,.86); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-top:16px; padding-bottom:16px;
+  }
+  .brand{ display:flex; align-items:center; gap:11px; font-family:var(--display); font-weight:700; font-size:16px; color:var(--navy); }
+  .brand .mark{
+    width:34px; height:34px; border-radius:50%;
+    background:radial-gradient(circle at 32% 30%, #7fb3ff, var(--accent) 70%);
+    color:#fff; font-family:var(--mono); font-size:12px; font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .nav-links{ display:flex; gap:30px; font-size:14.5px; color:var(--text-muted); font-weight:500; }
+  .nav-links a:hover{ color:var(--navy); }
+  .nav-cta{ display:flex; align-items:center; gap:14px; }
+  .menu-toggle{ display:none; }
+
+  /* HERO */
+  .hero{ padding-top:76px; padding-bottom:60px; position:relative; overflow:hidden; }
+  .hero::before{
+    content:""; position:absolute; inset:-20% -10% auto -10%; height:520px;
+    background:radial-gradient(60% 60% at 30% 20%, rgba(59,130,246,.10), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:start; position:relative;
+  }
+  .hero h1{ font-size:clamp(38px,5vw,58px); line-height:1.05; margin:18px 0 20px; }
+  .hero .role{ font-size:18px; color:var(--text-muted); font-family:var(--mono); margin-bottom:18px; }
+  .hero .role span{ color:var(--navy); font-weight:600; }
+  .hero p.desc{ font-size:16.5px; color:var(--text-muted); max-width:520px; margin-bottom:34px; }
+  .hero .cta-row{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+
+  .stack-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:24px; box-shadow:var(--shadow);
+  }
+  .stack-card .top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+  .stack-card .top span{ font-family:var(--mono); font-size:12.5px; color:var(--text-muted); }
+  .dots{ display:flex; gap:6px; }
+  .dots i{ width:6px; height:6px; border-radius:50%; background:var(--accent-line); }
+  .dots i:first-child{ background:var(--accent); }
+  .stack-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .stack-tile{
+    background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:14px 16px;
+  }
+  .stack-tile b{ display:block; font-family:var(--display); font-size:15px; color:var(--navy); margin-bottom:3px; }
+  .stack-tile span{ font-family:var(--mono); font-size:12px; color:var(--text-muted); }
+  .stack-footer{
+    border-top:1px solid var(--border); padding-top:16px;
+    font-size:13px; color:var(--text-muted);
+  }
+  .stack-footer b{ display:block; color:var(--navy); font-family:var(--display); font-size:15.5px; margin-top:3px; }
+
+  /* SOBRE */
+  .about-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:56px; align-items:start; }
+  .about-grid p{ color:var(--text-muted); font-size:16px; margin-bottom:16px; }
+  .fact-list{ display:grid; gap:14px; }
+  .fact{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:16px 18px;
+  }
+  .fact .dot{ width:8px; height:8px; margin-top:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+  .fact b{ font-family:var(--display); font-size:14.5px; color:var(--navy); display:block; }
+  .fact span{ font-size:14px; color:var(--text-muted); }
+
+  /* COMPETÊNCIAS */
+  .skills-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .skill-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:26px; transition:border-color .15s ease, transform .15s ease;
+  }
+  .skill-card:hover{ border-color:var(--accent-line); transform:translateY(-2px); }
+  .skill-card .tag{
+    font-family:var(--mono); font-size:11.5px; color:var(--accent);
+    background:var(--accent-soft); border-radius:6px; padding:4px 8px;
+    display:inline-block; margin-bottom:14px;
+  }
+  .skill-card h3{ font-size:18px; margin-bottom:10px; }
+  .skill-card ul li{ font-size:13.8px; color:var(--text-muted); padding:4px 0; position:relative; padding-left:16px; }
+  .skill-card ul li::before{ content:"—"; position:absolute; left:0; color:var(--accent-line); }
+
+  /* PROJETOS */
+  .projects{ display:grid; gap:22px; }
+  .project-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+    padding:30px; display:grid; grid-template-columns:1.3fr .9fr; gap:30px; align-items:start;
+    box-shadow:var(--shadow);
+  }
+  .project-card .ptitle{ display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+  .project-card h3{ font-size:21px; }
+  .badge{
+    font-family:var(--mono); font-size:11px; padding:3px 9px; border-radius:999px;
+    background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-line);
+  }
+  .project-card p.desc{ color:var(--text-muted); font-size:14.8px; margin-bottom:16px; }
+  .tech-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+  .tech-pill{
+    font-family:var(--mono); font-size:11.5px; color:var(--navy-2);
+    background:var(--surface-2); border:1px solid var(--border);
+    padding:5px 10px; border-radius:999px;
+  }
+  .project-link{ display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--navy); }
+  .project-link svg{ width:15px; height:15px; }
+  .project-link:hover{ color:var(--accent); }
+
+  .metrics{
+    background:var(--navy); border-radius:var(--radius-md); padding:20px;
+    font-family:var(--mono);
+  }
+  .metrics .mhead{ font-size:11px; color:#8fa8d6; margin-bottom:14px; letter-spacing:.03em; }
+  .metric-row{ display:flex; justify-content:space-between; align-items:baseline; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.08); }
+  .metric-row:last-child{ border-bottom:none; }
+  .metric-row span.label{ font-size:12px; color:#aebfe0; }
+  .metric-row span.val{ font-size:14px; color:#6ee7b7; font-weight:600; }
+  .note-box{
+    background:var(--surface-2); border:1px dashed var(--border); border-radius:var(--radius-md);
+    padding:14px 16px; font-size:13px; color:var(--text-muted); margin-top:18px;
+  }
+
+  /* EXPERIÊNCIA */
+  .timeline{ position:relative; padding-left:28px; border-left:2px solid var(--border); }
+  .tl-item{ position:relative; padding-bottom:36px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-34px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--accent); border:3px solid var(--bg); box-shadow:0 0 0 2px var(--accent-line);
+  }
+  .tl-item .when{ font-family:var(--mono); font-size:12.5px; color:var(--accent); margin-bottom:6px; display:block; }
+  .tl-item h3{ font-size:18px; margin-bottom:4px; }
+  .tl-item .org{ font-size:14px; color:var(--text-muted); margin-bottom:12px; }
+  .tl-item ul li{ font-size:14.5px; color:var(--text-muted); padding:4px 0 4px 16px; position:relative; }
+  .tl-item ul li::before{ content:"—"; position:absolute; left:0; color:var(--accent-line); }
+
+  /* FORMAÇÃO */
+  .edu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .edu-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md);
+    padding:20px 22px;
+  }
+  .edu-card .status{
+    font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:.05em;
+    padding:3px 9px; border-radius:999px; display:inline-block; margin-bottom:10px;
+  }
+  .status.done{ background:var(--good-soft); color:var(--good); }
+  .status.progress{ background:var(--accent-soft); color:var(--accent); }
+  .edu-card h3{ font-size:15.5px; margin-bottom:4px; }
+  .edu-card .org{ font-size:13px; color:var(--text-muted); margin-bottom:8px; }
+  .edu-card p{ font-size:13.3px; color:var(--text-muted); }
+
+  /* CONTATO */
+  .contact-card{
+    background:var(--navy); border-radius:24px; padding:56px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .contact-card::before{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(45% 65% at 80% 0%, rgba(59,130,246,.28), transparent 70%);
+  }
+  .contact-card *{ position:relative; }
+  .contact-card h2{ color:#fff; margin-bottom:12px; }
+  .contact-card p{ color:#aebfe0; font-size:15.5px; max-width:460px; margin:0 auto 30px; }
+  .contact-row{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; }
+  .contact-card .btn-primary{ background:#fff; color:var(--navy); }
+  .contact-card .btn-secondary{ background:transparent; color:#fff; border-color:rgba(255,255,255,.25); }
+  .contact-card .btn-secondary:hover{ border-color:#fff; color:#fff; }
+  .contact-meta{ margin-top:34px; display:flex; justify-content:center; gap:34px; flex-wrap:wrap; font-size:13.5px; color:#8fa8d6; font-family:var(--mono); }
+
+  footer{ padding:36px 0 50px; text-align:center; color:var(--text-muted); font-size:13.5px; }
+  footer a{ color:var(--navy); font-weight:600; }
+
+  @media (max-width: 880px){
+    .nav-links{ display:none; }
+    .hero-grid, .about-grid, .edu-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .project-card{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="mark">JP</span> João Pedro Menezes</div>
+    <ul class="nav-links">
+      <li><a href="#inicio">Início</a></li>
+      <li><a href="#sobre">Sobre mim</a></li>
+      <li><a href="#competencias">Competências</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#formacao">Formação</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="#contato" style="padding:10px 18px;">Contato</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Disponível para novas oportunidades</span>
+      <h1>João Pedro dos<br>Santos Menezes</h1>
+      <div class="role">Analista de Dados <span>·</span> Power BI <span>·</span> Python <span>·</span> SQL <span>·</span> Excel</div>
+      <p class="desc">Profissional da área de dados, atuando como estagiário em Ciência de Dados na Geap, com foco em análise, organização e otimização de informações. Em projetos pessoais, aplico Python, SQL e Machine Learning para complementar o trabalho diário com Power BI e Excel.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projetos" id="btn-projetos">
+          Ver projetos
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-secondary" href="[CURRICULO_PDF_BASE64_OMITIDO]" download="curriculo-joao-pedro-menezes.pdf" id="btn-curriculo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+          Baixar currículo
+        </a>
+        <a class="icon-btn" href="https://github.com/joaopemenezes" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.98 5.24.98 11.52c0 5.02 3.26 9.28 7.78 10.78.57.1.78-.25.78-.55v-2.1c-3.16.7-3.83-1.38-3.83-1.38-.52-1.3-1.26-1.65-1.26-1.65-1.03-.71.08-.7.08-.7 1.14.08 1.74 1.18 1.74 1.18 1.01 1.75 2.65 1.24 3.3.95.1-.73.4-1.24.72-1.53-2.52-.29-5.18-1.27-5.18-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.17.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.18-1.48 3.13-1.17 3.13-1.17.63 1.57.24 2.73.12 3.02.73.8 1.17 1.82 1.17 3.06 0 4.37-2.66 5.34-5.2 5.62.41.36.77 1.06.77 2.15v3.19c0 .3.21.66.79.55A11.53 11.53 0 0 0 23.02 11.5C23.02 5.24 18.27.5 12 .5Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="stack-card">
+      <div class="top">
+        <span>stack.overview</span>
+        <div class="dots"><i></i><i></i><i></i></div>
+      </div>
+      <div class="stack-grid">
+        <div class="stack-tile"><b>Power BI</b><span>DAX · Modelagem</span></div>
+        <div class="stack-tile"><b>Python</b><span>Pandas · NumPy</span></div>
+        <div class="stack-tile"><b>SQL</b><span>Consultas · Joins</span></div>
+        <div class="stack-tile"><b>Excel</b><span>PROCV · Dashboards</span></div>
+      </div>
+      <div class="stack-footer">
+        Atualmente em
+        <b>Geap · Estágio em Ciência de Dados</b>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="wrap about-grid">
+    <div>
+      <span class="eyebrow">Sobre mim</span>
+      <h2>Dados organizados viram decisões melhores.</h2>
+    </div>
+    <div>
+      <p>Atuo como estagiário em Ciência de Dados na Geap, com foco em análise, organização e otimização de bases de dados para apoiar a tomada de decisão. Sou formado em Análise e Desenvolvimento de Sistemas pela Universidade Católica de Brasília e planejo iniciar em breve uma pós-graduação para aprofundar ainda mais minhas competências voltadas para o trabalho com dados.</p>
+      <p>No estágio, uso Excel avançado e Power BI no dia a dia para estruturar informações, cruzar bases e construir dashboards e indicadores. Em projetos pessoais, aprofundo Python (Pandas, NumPy, Matplotlib), SQL e Machine Learning — sempre buscando transformar volumes grandes de dados em algo simples de entender.</p>
+      <div class="fact-list" style="margin-top:26px;">
+        <div class="fact"><span class="dot"></span><div><b>Formação</b><span>Análise e Desenvolvimento de Sistemas — UCB (concluído)</span></div></div>
+        <div class="fact"><span class="dot"></span><div><b>Localização</b><span>Riacho Fundo I, Brasília - DF</span></div></div>
+        <div class="fact"><span class="dot"></span><div><b>Idiomas</b><span>Inglês — nível intermediário</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competencias">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Competências</span>
+      <h2>Ferramentas do dia a dia</h2>
+      <p>Da planilha ao dashboard interativo — as ferramentas que uso para transformar dados em informação.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="tag">excel</span>
+        <h3>Excel avançado</h3>
+        <ul>
+          <li>Tabelas dinâmicas e fórmulas avançadas (PROCV, ÍNDICE/CORRESP, SE, SOMASES)</li>
+          <li>Gráficos dinâmicos com atualização automática</li>
+          <li>Dashboards com segmentações (slicers) e KPIs</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="tag">power bi</span>
+        <h3>Power BI</h3>
+        <ul>
+          <li>Power Query e modelagem dimensional (esquema estrela)</li>
+          <li>DAX — medidas e colunas calculadas</li>
+          <li>Dashboards com filtros, drill-through e KPIs</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="tag">python</span>
+        <h3>Python</h3>
+        <ul>
+          <li>Pandas — organização e transformação de dados</li>
+          <li>NumPy — cálculos numéricos e operações vetorizadas</li>
+          <li>Matplotlib — visualização de dados</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="tag">sql</span>
+        <h3>SQL &amp; Bancos de Dados</h3>
+        <ul>
+          <li>Consultas, joins e modelagem relacional</li>
+          <li>MySQL — estrutura e integridade de dados</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="tag">análise</span>
+        <h3>Análise de Dados</h3>
+        <ul>
+          <li>Interpretação de grandes volumes de dados</li>
+          <li>Identificação de tendências e distribuições</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="tag">soft skills</span>
+        <h3>Raciocínio &amp; Equipe</h3>
+        <ul>
+          <li>Raciocínio lógico e resolução de problemas</li>
+          <li>Trabalho em equipe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projetos">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Projetos</span>
+      <h2>O que já construí</h2>
+      <p>Projetos aplicados de análise, otimização e modelagem de dados — do notebook ao dashboard.</p>
+    </div>
+
+    <div class="projects">
+
+      <div class="project-card">
+        <div>
+          <div class="ptitle">
+            <h3>Otimização Logística de Marketplace</h3>
+            <span class="badge">ponta a ponta</span>
+          </div>
+          <p class="desc">Projeto sobre o dataset público da Olist (99.441 pedidos reais de um marketplace brasileiro), simulando uma rede logística com múltiplos centros de distribuição regionais para reduzir distância, frete e atrasos de entrega.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Pandas / NumPy</span>
+            <span class="tech-pill">Scikit-learn</span>
+            <span class="tech-pill">K-Means</span>
+            <span class="tech-pill">OR-Tools</span>
+            <span class="tech-pill">Streamlit</span>
+          </div>
+          <a class="project-link" href="https://github.com/joaopemenezes/otimizacao-logistica-marketplace" target="_blank" rel="noopener">
+            Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+        <div class="metrics">
+          <div class="mhead">resultados.log</div>
+          <div class="metric-row"><span class="label">redução simulada de distância</span><span class="val">-60%</span></div>
+          <div class="metric-row"><span class="label">redução simulada de frete</span><span class="val">-18%</span></div>
+          <div class="metric-row"><span class="label">redução simulada de rota (VRP)</span><span class="val">-38%</span></div>
+          <div class="metric-row"><span class="label">previsão de demanda (MAPE)</span><span class="val">3,3%</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="ptitle">
+            <h3>Análise de E-commerce — Dataset Olist</h3>
+          </div>
+          <p class="desc">Pipeline de dados de ponta a ponta sobre o dataset público da Olist, um marketplace brasileiro de e-commerce, respondendo perguntas reais de negócio com Python e visualizações profissionais.</p>
+          <div class="tech-row">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Pandas</span>
+            <span class="tech-pill">Jupyter Notebook</span>
+          </div>
+          <a class="project-link" href="https://github.com/joaopemenezes/analise-ecommerce-olist" target="_blank" rel="noopener">
+            Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+        <div class="metrics">
+          <div class="mhead">stack.log</div>
+          <div class="metric-row"><span class="label">linguagem</span><span class="val">Python</span></div>
+          <div class="metric-row"><span class="label">formato</span><span class="val">Notebook</span></div>
+          <div class="metric-row"><span class="label">foco</span><span class="val">perguntas de negócio</span></div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="ptitle">
+            <h3>PharmaSync — Banco de Dados</h3>
+            <span class="badge">projeto em dupla</span>
+          </div>
+          <p class="desc">Modelagem e implementação do banco de dados de um aplicativo mobile de comparação de preços e compra de medicamentos em farmácias cadastradas. Responsável pela modelagem das 17 tabelas em MySQL, aplicando boas práticas como soft delete, preços em centavos e senhas em hash.</p>
+          <div class="tech-row">
+            <span class="tech-pill">MySQL 8.0</span>
+            <span class="tech-pill">InnoDB</span>
+            <span class="tech-pill">Modelagem Relacional</span>
+          </div>
+          <a class="project-link" href="https://github.com/joaopemenezes/pharmasync-banco" target="_blank" rel="noopener">
+            Ver no GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M7 17L17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+        <div class="metrics">
+          <div class="mhead">schema.log</div>
+          <div class="metric-row"><span class="label">tabelas</span><span class="val">17</span></div>
+          <div class="metric-row"><span class="label">engine</span><span class="val">InnoDB</span></div>
+          <div class="metric-row"><span class="label">charset</span><span class="val">utf8mb4</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Experiência</span>
+      <h2>Trajetória profissional</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="when">Atual</span>
+        <h3>Estagiário em Ciência de Dados</h3>
+        <div class="org">Geap Autogestão em Saúde</div>
+        <ul>
+          <li>Análise, organização e otimização de bases de dados, utilizando Excel e Power BI para estruturar informações e apoiar a tomada de decisão.</li>
+          <li>Aplicação de fórmulas avançadas e tabelas dinâmicas para tratamento, filtragem e cruzamento de grandes volumes de dados.</li>
+          <li>Desenvolvimento de dashboards e relatórios interativos, integrando diferentes fontes de dados e indicadores de desempenho (KPIs).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formacao">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Formação</span>
+      <h2>Cursos e certificações</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <span class="status progress">planejada</span>
+        <h3>Pós-graduação</h3>
+        <div class="org">Inscrição em breve</div>
+      </div>
+      <div class="edu-card">
+        <span class="status done">concluído</span>
+        <h3>Análise e Desenvolvimento de Sistemas</h3>
+        <div class="org">Universidade Católica de Brasília</div>
+      </div>
+      <div class="edu-card">
+        <span class="status done">concluído</span>
+        <h3>Certificado Profissional de Analista de Dados</h3>
+        <div class="org">IBM (Coursera)</div>
+        <p>Python, Pandas, NumPy, SQL, Excel, Jupyter Notebooks e IBM Cognos Analytics.</p>
+      </div>
+      <div class="edu-card">
+        <span class="status done">concluído · 110h</span>
+        <h3>Excel</h3>
+        <div class="org">Hashtag</div>
+        <p>Fórmulas avançadas, análise de dados e dashboards interativos.</p>
+      </div>
+      <div class="edu-card">
+        <span class="status done">concluído · 32h</span>
+        <h3>Power BI</h3>
+        <div class="org">Alura</div>
+        <p>Power Query, modelagem dimensional, DAX e dashboards interativos.</p>
+      </div>
+      <div class="edu-card">
+        <span class="status done">concluído · 96h</span>
+        <h3>Fundamentos de Linguagem Python: Do Básico a Aplicações de IA</h3>
+        <div class="org">Data Science Academy</div>
+        <p>Projetos aplicados em análise de vendas, POO, análise estatística e Machine Learning.</p>
+      </div>
+      <div class="edu-card">
+        <span class="status progress">em andamento</span>
+        <h3>Probabilidade e Estatística</h3>
+        <div class="org">Khan Academy</div>
+        <p>Média, mediana, moda, variância, distribuições, inferência estatística e regressão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="contact-card">
+      <h2>Vamos conversar sobre dados?</h2>
+      <p>Estou disponível para novas oportunidades na área de dados. Envie uma mensagem ou baixe meu currículo completo.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="mailto:joaomenezesdev@gmail.com">Enviar e-mail</a>
+        <a class="btn btn-secondary" href="[CURRICULO_PDF_BASE64_OMITIDO]" download="curriculo-joao-pedro-menezes.pdf">Baixar currículo</a>
+      </div>
+      <div class="contact-meta">
+        <span>joaomenezesdev@gmail.com</span>
+        <span>+61 99464-7171</span>
+        <span>Brasília - DF</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> João Pedro dos Santos Menezes — feito com atenção aos dados.
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // smooth scroll fallback + active handling for in-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var id = this.getAttribute('href');
+      if(id.length > 1){
+        var target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({ behavior:'smooth', block:'start' });
+        }
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
